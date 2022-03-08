@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max's bank</title>
+</head>
+<body>
+    <div style="text-align:center; margin-top: 20%;">
+    <input type="text" name="amount" id="amount">
+    <p>Your current balance is :$<span id = "balance"></span></p>
+    <button id = "deposit">Deposit</button>
+    <button id = "withdraw">Withdraw</button>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.1/web3.min.js" integrity="sha512-GKw4QT/RccGJIwQxY3MhyiQ5pHrhQ8SuKFEafV+WcpOvtz7iYFQuQGFCvmGlHLctJTe8KrWU1FqvF7VOkEAJtw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<script>
+
+   if(typeof window.ethereum !== undefined){
+       
+       
+           web3 = new Web3(web3.currentProvider)
+           var contract;
+           let address = "0x15a57342C14a41B42911Dfaa8654526aAb1Cec11"
+           let abi = [
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amt",
+				"type": "uint256"
+			}
+		],
+		"name": "deposit",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getBalance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amt",
+				"type": "uint256"
+			}
+		],
+		"name": "withdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]
+           contract = new web3.eth.Contract(abi,address)
+            async function getB(){
+                let bal = await contract.methods.getBalance().call()
+                $('#balance').html(bal)
+            }
+           
+
+
+getB()
+}
+
+else{
+  console.log("Install kar meta mask lavde")
+}
+
+</script>
+
+</html>
